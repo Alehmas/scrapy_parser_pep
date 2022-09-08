@@ -1,7 +1,10 @@
 import datetime
 
-from pep_parse.settings import RESULTS_DIR
+from pathlib import Path
 
+
+BASE_DIR = Path(__file__).parent.parent
+RESULTS_DIR = BASE_DIR / 'results'
 
 format = '%Y-%m-%d_%H-%M-%S'
 date = datetime.datetime.now().strftime(format)
