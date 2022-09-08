@@ -3,6 +3,7 @@ import scrapy
 
 from pep_parse.items import PepParseItem
 
+
 class PepSpider(scrapy.Spider):
     name = 'pep'
     allowed_domains = ['peps.python.org']
@@ -18,7 +19,7 @@ class PepSpider(scrapy.Spider):
         inform = response.css('section#pep-content dl')
         date = {
             'number': name_number.split()[1],
-            'name': re.split(r'PEP \d+...',name_number)[1],
+            'name': re.split(r'PEP \d+...', name_number)[1],
             'status': inform.css('dt:contains("Status") + dd::text').get()
         }
         yield PepParseItem(date)

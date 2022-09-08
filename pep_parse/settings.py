@@ -1,3 +1,7 @@
+from pathlib import Path
+
+BASE_DIR = Path(__file__).parent.parent
+RESULTS_DIR = BASE_DIR / 'results'
 BOT_NAME = 'pep_parse'
 
 SPIDER_MODULES = ['pep_parse.spiders']
@@ -11,13 +15,6 @@ FEEDS = {
         'fields': ['number', 'name', 'status'],
         'overwrite': True
     },
-    # # И ещё один файл.
-    # 'quotes_author.csv': {
-    #     'format': 'csv',
-    #     # В этот файл попадёт только список авторов.
-    #     'fields': ['author'],
-    #     'overwrite': True
-    # },
 }
 ITEM_PIPELINES = {
     'pep_parse.pipelines.PepParsePipeline': 300,
