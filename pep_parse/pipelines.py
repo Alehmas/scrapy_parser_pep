@@ -4,7 +4,6 @@ from pathlib import Path
 
 
 BASE_DIR = Path(__file__).parent.parent
-RESULTS_DIR = BASE_DIR / 'results'
 
 format = '%Y-%m-%d_%H-%M-%S'
 date = datetime.datetime.now().strftime(format)
@@ -26,7 +25,8 @@ class PepParsePipeline:
         return item
 
     def close_spider(self, spider):
-        with open(RESULTS_DIR / filename, mode='w', encoding='utf-8') as f:
+        with open(BASE_DIR / f'results/{filename}.csv',
+                  mode='w', encoding='utf-8') as f:
             f.write('Статус,Количество\n')
             for key, value in self.count_list.items():
                 f.write(f'{key},{value}\n')
