@@ -1,30 +1,30 @@
-# Парсер для документации с сайта docs.python.org
+# Parser for website documentation docs.python.org
 
 
 
-Парсер умеет:
-  1. Составляет в список все РЕР(номер, название, статус) и сохраняет в csv-файл.
-  2. составляет сводку по статусам PEP — сколько найдено документов в каждом статусе и сохраняет в csv-файл.
+The parser can:
+  1. Lists all PEPs (number, name, status) and saves to a csv file.
+  2. compiles a summary of the PEP statuses - how many documents were found in each status and saves it to a csv file.
 
   
-## Запуск парсера
+## Launching the parser
 
-1.Клонировать репозиторий:
+1.Clone the repository:
 <pre>
 git@github.com:Oleg-2006/scrapy_parser_pep.git
 </pre>
 
-2.Установить виртуальное окружение:
+2.Install virtual environment:
 <pre>
 python -m venv venv
 </pre>
 
-3.Установить все зависимости:
+3.Install all dependencies:
 <pre>
 pip install -r requirements.txt
 </pre>
 
-4.Запустить парсер:
+4.Run parser:
 <pre>
 scrapy crawl pep
 </pre>
