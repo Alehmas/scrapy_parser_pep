@@ -4,63 +4,63 @@ try:
     from pep_parse.settings import FEEDS, ITEM_PIPELINES
 except ModuleNotFoundError as exc:
     raise AssertionError(
-        'Не найден файл `settings.py` по пути '
+        'File `settings.py` not found in path '
         f'`pep_parse.{exc.name.split(".")[0]}`',
     )
 except ImportError as exc:
     raise AssertionError(
-        f'Не найдены настройки `{exc.args[0].split()[3]}` в файле {exc.name}',
+        f'Settings `{exc.args[0].split()[3]}` not found in file {exc.name}',
     )
 
 
 def test_settings_feeds():
     assert isinstance(FEEDS, dict), (
-        'В файле settings.py необходимо объявить переменную `FEEDS` '
-        'типа `dict` согласно документации.\n'
-        'Ссылка на документацию: '
+        'You need to declare a `FEEDS` variable in settings.py '
+        'of type `dict` according to the documentation.\n'
+        'Documentation link: '
         'https://docs.scrapy.org/en/latest/topics/feed-exports.html?highlight=feeds#feeds'
     )
     feeds_path = list(FEEDS.keys())
     assert len(feeds_path) == 1, (
-        'В `FEEDS` необходимо объявить только 1 ключ с путём сохранения файла.'
+        'In `FEEDS` only 1 key with file save path needs to be declared.'
     )
     if isinstance(feeds_path[0], Path):
         feeds_path[0] = str(feeds_path[0])
     splited_path = feeds_path[0].split('/')
     assert splited_path[0] == 'results', (
-        'Убедитесь, что в ключе словаря `FEEDS` перед именем файла указан '
-        'путь к директории `results/`'
+        'Make sure the `FEEDS` dictionary key precedes the filename with '
+        'path to directory `results/`'
     )
     assert splited_path[1] == 'pep_%(time)s.csv', (
-        'В имени файла с перечнем PEP должен быть префикс pep_ '
-        'и подстановка даты `%(time)s`'
+        'The name of the PEP listing file must be prefixed with pep_ '
+        'and date substitution `%(time)s`'
     )
     path_key = list(FEEDS.keys())[0]
     fields_format_keys = FEEDS.get(path_key)
     assert fields_format_keys.get('fields') == ['number', 'name', 'status'], (
-        'Убедитесь, что в FEEDS есть все необходимые поля: '
+        'Make sure FEEDS has all required fields: '
         '`number, name, status`'
     )
     assert fields_format_keys.get('format') == 'csv', (
-        'Проверьте формат вывода файла в FEEDS'
+        'Check file output format in FEEDS'
     )
 
 
 def test_item_pipelines():
     assert isinstance(ITEM_PIPELINES, dict), (
-        'В файле settings.py необходимо объявить переменную `ITEM_PIPELINES` '
-        'типа `dict` согласно документации.\n'
-        'Ссылка на документацию: '
+        'You need to declare `ITEM_PIPELINES` variable in settings.py '
+        'of type `dict` according to the documentation.\n'
+        'Documentation link: '
         'https://docs.scrapy.org/en/latest/topics/settings.html?highlight=ITEM_PIPELINES#item-pipelines'
     )
     item_pipelines = list(ITEM_PIPELINES.keys())
     assert len(item_pipelines) == 1, (
-        'В `ITEM_PIPELINES` необходимо объявить 1 ключ с именем пайплайна.'
+        'In `ITEM_PIPELINES` you need to declare 1 key with the name of the pipeline.'
     )
     assert item_pipelines[0] == 'pep_parse.pipelines.PepParsePipeline', (
-        'Ключом пайплайна в настройках `ITEM_PIPELINES` должен быть класс.'
+        'The pipeline key in the `ITEM_PIPELINES` settings must be a class.'
     )
     assert ITEM_PIPELINES['pep_parse.pipelines.PepParsePipeline'] in range(1000), (
-        'В качестве значения для ключа `pep_parse.pipelines.PepParsePipeline` '
-        'в настройках укажите значение из диапазона от `0` и до `1000`'
+        'As value for key `pep_parse.pipelines.PepParsePipeline` '
+        'in the settings specify a value from the range from `0` to `1000`'
     )

@@ -19,7 +19,7 @@ def results_dir():
 
 def test_results_dir_exists(results_dir):
     assert len(results_dir), (
-        'Не обнаружена папка /results'
+        'Folder /results not found'
     )
 
 
@@ -29,15 +29,15 @@ def test_csv_files(results_dir):
     ]
 
     assert len(csv_files), (
-        'В папке results не обнаружено csv-файлов '
-        'с результатами работы парсера.'
+        'No csv files were found in the results folder '
+        'with the results of the parser.'
     )
     assert not len(csv_files) < 2, (
-        'В папке results должно быть два csv-файла. '
-        'Сохраните в эту папку актуальные '
-        'csv-файлы с результатами парсинга'
+        'There should be two csv files in the results folder. '
+        'Save to this folder the latest '
+        'csv files with parsing results'
     )
     assert not len(csv_files) > 2, (
-        'В папке results больше двух файлов. '
-        'Оставьте в ней два актуальных csv-файла с результатами парсинга.'
+        'There are more than two files in the results folder. '
+        'Leave in it two actual csv-files with parsing results.'
     )

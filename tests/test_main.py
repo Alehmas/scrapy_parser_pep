@@ -10,7 +10,7 @@ try:
     from pep_parse.spiders.pep import PepSpider
 except ModuleNotFoundError:
     raise AssertionError(
-        'В директории pep_parse.spiders не найден файл `pep.py`',
+        'No `pep.py` file found in pep_parse.spiders directory',
     )
 
 
@@ -45,18 +45,18 @@ def test_run_scrapy(monkeypatch, tmp_path):
         if str(file).endswith('.csv')
     ]
     assert dirs == ['results'], (
-        'Убедитесь что в директории проекта создается директория `results` для '
-        'вывода в файл результатов.'
+        'Make sure the `results` directory is created in the project directory for '
+        'output to result file.'
     )
     assert len(output_files) == 2, (
-        'Убедитесь, что создано два csv-файла с результами парсинга'
+        'Make sure two parsed csv files are created'
     )
     assert any('pep_' in str(file) for file in output_files), (
-        'Убедитесь, что список PEP сохраняется в файл с префиксом `pep_`'
+        'Make sure the PEP list is saved to a file prefixed with `pep_`'
     )
     assert any('status_summary_' in str(file) for file in output_files), (
-        'Убедитесь, что сводка о числе документов в каждом статусе '
-        'сохраняется в файл с префиксом `status_summary_`'
+        'Ensure that a summary of the number of documents in each status '
+        'saved to a file prefixed with `status_summary_`'
     )
 
 
@@ -69,8 +69,8 @@ def test_check_correct_output_files():
         file_result = file.read()
         pep_pattern = re.compile(r'(\d)+\,PEP\s?(\d)+\s?(.)+')
         assert re.search(pep_pattern, file_result), (
-            'Проверьте формат записи строк в файл `pep_`.'
-            'Строки должны соответствовать виду '
+            'Check the format for writing lines to `pep_`.'
+            'Strings must match the view '
             '"20,PEP 20 – The Zen of Python,Active"'
         )
     with open(
@@ -82,6 +82,6 @@ def test_check_correct_output_files():
         file_result = file.read()
         active_pattern = re.compile(r'Active,(\d)+')
         assert re.search(active_pattern, file_result), (
-            'Убедитесь, что строки в файле `status_summary_` '
-            'записываются в правильном формате: `Статус,Количество`'
+            'Make sure the lines in `status_summary_` '
+            'are written in the correct format: `Status,Count`'
         )

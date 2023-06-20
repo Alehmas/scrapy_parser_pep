@@ -5,20 +5,20 @@ import scrapy
 try:
     from pep_parse.items import PepParseItem
 except ModuleNotFoundError:
-    raise AssertionError('Не найден файл `items.py`')
+    raise AssertionError('File `items.py` not found')
 except ImportError as exc:
-    raise AssertionError(f'Не найден класс `PepParseItem` в файле {exc.name}')
+    raise AssertionError(f'Class `PepParseItem` not found in file {exc.name}')
 
 
 def test_items_fields():
     assert inspect.isclass(PepParseItem), (
-        '`PepParseItem` должен быть классом.'
+        '`PepParseItem` must be a class.'
     )
     assert issubclass(PepParseItem, scrapy.Item), (
-        '`PepParseItem` должен наследоваться от `scrapy.Item`'
+        '`PepParseItem` must inherit from `scrapy.Item`'
     )
     fields = ['number', 'name', 'status']
     for field in fields:
         assert field in list(PepParseItem.fields.keys()), (
-            f'В `PepParseItem` не хватает атрибута `{field}`'
+            f'Attribute `{field}` is missing in `PepParseItem`'
         )
